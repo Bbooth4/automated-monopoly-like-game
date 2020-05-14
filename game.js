@@ -26,12 +26,12 @@ class Player {
   }
 
   getSpace() {
-    console.log(this.space);
+    // console.log(this.space);
     return this.space;
   }
 
   moveSpace(roll, board) {
-    console.log({roll, space: this.space})
+    // console.log({roll, space: this.space})
     const current = this.space + roll;
     if (current > board.length-1) {
       this.space = current - board.length;
@@ -39,17 +39,17 @@ class Player {
     } else {
       this.space = current;
     };
-    console.log('Space', this.space);
+    // console.log('Space', this.space);
   }
 
   purchaseProperty(property) {
-    console.log('Purchasing', this.money > property.cost);
+    // console.log('Purchasing', this.money > property.cost);
     if (property.owner === null) {
       if (this.money > property.cost) {
         this.money -= property.cost;
         this.properties[property.type].owned.push(property);
       } else {
-        console.log('You do not have enough money');
+        // console.log('You do not have enough money');
       }
     }
   }
@@ -57,7 +57,7 @@ class Player {
   payOtherPlayer(value) {
     this.money += value;
     if (this.money <= 0) {
-      console.log('You are bankrupt!');
+      // console.log('You are bankrupt!');
       this.bankrupt = true;
     }
   }
@@ -71,7 +71,7 @@ class Player {
   }
 
   passGo() {
-    console.log('PASSED GO');
+    // console.log('PASSED GO');
     this.money = this.money + 200;
   }
 }
@@ -132,7 +132,7 @@ class Properties {
   }
 
   checkProperties(property) {
-    console.log(property, this.properties[property]);
+    // console.log(property, this.properties[property]);
     return this.properties[property];
   }
 

@@ -25,7 +25,7 @@ const playGame = (players, props) => {
       currentPlayer.payTaxes();
     } else {
       const property = props.checkProperties(space);
-      console.log({property});
+      // console.log({property});
       if (property.owner === null) {
         currentPlayer.purchaseProperty(property);
         props.assignOwner(currentPlayer.name, property.name);
