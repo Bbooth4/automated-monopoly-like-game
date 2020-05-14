@@ -48,7 +48,6 @@ class Player {
         console.log('You do not have enough money');
       }
     }
-    console.log('PURCHASE', property.cost, this.money);
   }
 
   buyHouses() {
@@ -61,14 +60,17 @@ class Player {
     const selection = randomized.find(e => e.total === e.owned.length && e.houses < 4);
     console.log('HOUSES', selection);
     if (selection) {
-      this.money -= selection.owned[0].houseCost;
-      console.log('TYPE', selection.owned[0].type);
-      this.properties[selection.owned[0].type].houses += 1;
+      const cost =  selection.owned[0].houseCost;
+      if (this.money > cost) {
+        this.money -= cost;
+        this.properties[selection.owned[0].type].houses += 1;
+      }
     }
   }
 
   payOtherPlayer(type, value) {
-    this.money -= this.properties[type].houses * value;
+    this.money -= this.properties[type].houses + 1 * value;
+    console.log(this.money, this.properties[type].houses, value);
     if (this.money <= 0) {
       console.log('You are bankrupt!');
       this.bankrupt = true;
@@ -77,7 +79,7 @@ class Player {
   }
 
   getPaid(type, value) {
-    this.money += this.properties[type].houses * value;
+    this.money += this.properties[type].houses || 1 * value;
     console.log('PAID', this.money);
   }
 
