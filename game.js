@@ -66,6 +66,10 @@ class Player {
     this.money += value;
   }
 
+  payTaxes() {
+    this.money -= this.money*0.5;
+  }
+
   passGo() {
     console.log('PASSED GO');
     this.money = this.money + 200;

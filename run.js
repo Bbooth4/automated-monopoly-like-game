@@ -1,9 +1,10 @@
 const { Player, Properties } = require('./game');
 
-const board = ['go', 'red1', 'red2', 'blank', 'blue1', 'blue2', 'blue3', 'blank', 'green1', 'green2'];
+const board = ['go', 'red1', 'red2', 'taxes', 'blue1', 'taxes', 'blue2', 'blue3', 'taxes', 'green1', 'green2', 'taxes'];
 
 const Player1 = new Player('Steve', 1000, 0);
 const Player2 = new Player('Amanda', 1000, 0);
+const Player3 = new Player('Blaire', 1000, 0);
 const AllProperties = new Properties();
 
 const rollDice = () => Math.ceil(Math.random() * 4)
@@ -20,8 +21,8 @@ const playGame = (players, props) => {
     const space = board[currentPlayer.getSpace()];
     if (space === 'go') {
       currentPlayer.passGo();
-    } else if (space === 'blank') {
-      console.log('Nothing happened');
+    } else if (space === 'taxes') {
+      currentPlayer.payTaxes();
     } else {
       const property = props.checkProperties(space);
       console.log({property});
@@ -42,7 +43,7 @@ const playGame = (players, props) => {
     }
 
     total++;
-    if (total === 15) {
+    if (total === 50) {
       console.log(
         'player1', {
           space: players[0].space,
@@ -58,13 +59,21 @@ const playGame = (players, props) => {
           propertiesBlue: players[1].properties.blue.owned,
           propertiesGreen: players[1].properties.green.owned
         },
-        props
+        'player3', {
+          space: players[2].space,
+          money: players[2].money,
+          propertiesRed: players[2].properties.red.owned,
+          propertiesBlue: players[2].properties.blue.owned,
+          propertiesGreen: players[2].properties.green.owned
+        },
+        // props
       );
       players[0].bankrupt = true;
+      players[1].bankrupt = true;
     }
   }
 };
 
 
-playGame([Player1, Player2], AllProperties);
+playGame([Player1, Player2, Player3], AllProperties);
 
