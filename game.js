@@ -3,6 +3,7 @@ class Player {
     this.name = name;
     this.money = money;
     this.space = space;
+    this.bankrupt = false;
     this.properties = {
       red: {
         total: 2,
@@ -54,11 +55,15 @@ class Player {
   }
 
   payOtherPlayer(value) {
-    this.money = this.money - value;
+    this.money += value;
     if (this.money <= 0) {
       console.log('You are bankrupt!');
-      return 'Bankrupt';
+      this.bankrupt = true;
     }
+  }
+
+  getPaid(value) {
+    this.money += value;
   }
 
   passGo() {
@@ -72,42 +77,49 @@ class Properties {
     this.properties = {
       red1: {
         type: 'red',
+        name: 'red1',
         cost: 100,
         payout: 50,
         owner: null
       },
       red2: {
         type: 'red',
+        name: 'red2',
         cost: 125,
         payout: 75,
         owner: null
       },
       blue1: {
         type: 'blue',
+        name: 'blue1',
         cost: 200,
         payout: 100,
         owner: null
       },
       blue2: {
         type: 'blue',
+        name: 'blue2',
         cost: 225,
         payout: 125,
         owner: null
       },
       blue3: {
         type: 'blue',
+        name: 'blue3',
         cost: 250,
         payout: 150,
         owner: null
       },
       green1: {
         type: 'green',
+        name: 'green1',
         cost: 300,
         payout: 150,
         owner: null
       },
       green2: {
         type: 'green',
+        name: 'green2',
         cost: 350,
         payout: 175,
         owner: null
