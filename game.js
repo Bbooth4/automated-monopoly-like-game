@@ -1,5 +1,3 @@
-const randomize = () => Math.floor(Math.random());
-
 class Player {
   constructor(name, money, space) {
     this.name = name;
@@ -34,6 +32,7 @@ class Player {
     if (current > board.length-1) {
       this.space = current - board.length;
       this.money += 200;
+      console.log('PASSED GO');
     } else {
       this.space = current;
     };
@@ -53,12 +52,11 @@ class Player {
   buyHouses() {
     const randomized = [];
     const options = Object.keys(this.properties);
-    const num = randomize();
+    const num = Math.floor(Math.random());
     options.forEach(e => {
       num === 1 ? randomized.push(this.properties[e]) : randomized.unshift(this.properties[e]);
     });
     const selection = randomized.find(e => e.total === e.owned.length && e.houses < 4);
-    console.log('HOUSES', selection);
     if (selection) {
       const cost =  selection.owned[0].houseCost;
       if (this.money > cost) {
@@ -69,18 +67,18 @@ class Player {
   }
 
   payOtherPlayer(type, value) {
-    this.money -= this.properties[type].houses + 1 * value;
-    console.log(this.money, this.properties[type].houses, value);
+    const newAmount = this.properties[type].houses + 1 * value;
+    const payment = newAmount > this.money ? this.money : newAmount;
+    this.money -= payment;
     if (this.money <= 0) {
-      console.log('You are bankrupt!');
+      console.log(`${this.name} is bankrupt!`, this.money);
       this.bankrupt = true;
     }
-    console.log('PAYING', this.money);
+    return payment;
   }
 
   getPaid(type, value) {
-    this.money += this.properties[type].houses || 1 * value;
-    console.log('PAID', this.money);
+    if (!this.bankrupt) this.money += this.properties[type].houses + 1 * value;
   }
 
   payTaxes() {
