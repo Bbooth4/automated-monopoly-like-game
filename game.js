@@ -77,8 +77,8 @@ class Player {
     return payment;
   }
 
-  getPaid(type, value) {
-    if (!this.bankrupt) this.money += this.properties[type].houses + 1 * value;
+  getPaid(value) {
+    if (!this.bankrupt) this.money += value;
   }
 
   payTaxes() {

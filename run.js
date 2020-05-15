@@ -39,7 +39,7 @@ const playGame = (players, props) => {
 
           if (!propertyOwner.bankrupt) {
             const payment = currentPlayer.payOtherPlayer(property.type, property.payout);
-            propertyOwner.getPaid(property.type, payment);
+            propertyOwner.getPaid(payment);
             console.log(`${currentPlayer.name} paid ${propertyOwner.name} $${payment}.`);
           }
         }
